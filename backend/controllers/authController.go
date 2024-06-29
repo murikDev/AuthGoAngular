@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"main/initializers"
 	"main/models"
 	"net/http"
@@ -12,6 +13,12 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+func checkUserExists(field, value string) bool {
+	var user models.User
+	initializers.DB.Where(fmt.Sprintf("%s = ?", field), value).Find(&user)
+	return user.ID != 0
+}
+
 func CreateUser(context *gin.Context) {
 	var authInputRegister models.AuthInputRegister
 
@@ -19,27 +26,20 @@ func CreateUser(context *gin.Context) {
 		context.IndentedJSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
-	var userFound models.User
-
-	initializers.DB.Where("user_name=?", authInputRegister.UserName).Find(&userFound)
-	if userFound.ID != 0 {
+	
+	if checkUserExists("user_name", authInputRegister.UserName) {
 		context.IndentedJSON(http.StatusBadRequest, gin.H{"error": "username already used"})
 		return
 	}
-
-	initializers.DB.Where("email=?", authInputRegister.Email).Find(&userFound)
-	if userFound.ID != 0 {
+	if checkUserExists("email", authInputRegister.Email) {
 		context.IndentedJSON(http.StatusBadRequest, gin.H{"error": "email already used"})
 		return
 	}
-
-	initializers.DB.Where("phone_number=?", authInputRegister.PhoneNumber).Find(&userFound)
-	if userFound.ID != 0 {
+	if checkUserExists("phone_number", authInputRegister.PhoneNumber) {
 		context.IndentedJSON(http.StatusBadRequest, gin.H{"error": "phone number already used"})
 		return
 	}
-
+	
 	passwordHash, err := bcrypt.GenerateFromPassword([]byte(authInputRegister.Password), bcrypt.DefaultCost)
 
 	if err != nil {
