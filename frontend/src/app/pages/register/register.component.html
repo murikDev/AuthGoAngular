@@ -1,0 +1,44 @@
+<div class="mx-auto py-3 text-center mt-8">
+    <div class="text-[32px] font-second py-4 font-bold">Agza bol</div>
+
+    <p class="py-2 font-second text-gray-400">Dowam etmek üçin maglumatlary giriziň</p>
+
+    <form [formGroup]="form" (submit)="submit()" >
+        <div
+            class="mx-auto flex items-center mt-4 w-[calc(100%-2rem)] sm:w-[624px] bg-gray-300 rounded-tl-md rounded-md border"
+            [ngClass]="{'border-red-500' : !form.get('phoneNumber')?.valid && form.get('phoneNumber')?.dirty }"
+        >
+            <span class="px-4 py-4 font-semibold">+993</span>
+            <input
+                type="text"
+                class="p-4  w-full rounded-tr-md rounded-br-md focus:outline-none font-second"
+                formControlName="phoneNumber"
+                [placeholder]="'Telefon belgiňiz'">
+        </div>
+
+
+        <div class="mx-auto mt-4 w-[calc(100%-2rem)] sm:w-[624px] bg-gray-300 rounded-md">
+            <input
+                formControlName="email"
+                type="email"
+                class="p-4 border w-full rounded-md focus:outline-none font-second"
+                [ngClass]="{'border-red-500' : !form.get('email')?.valid && form.get('email')?.dirty }"
+                [placeholder]="'Email salgyňyz'">
+        </div>
+
+        <div class="mx-auto mt-4 w-[calc(100%-2rem)] sm:w-[624px] bg-gray-300 rounded-md">
+            <input
+                formControlName="password"
+                type="password"
+                [ngClass]="{'border-red-500' : form.get('password')?.errors && form.get('password')?.dirty }"
+                class="p-4 border w-full rounded-md focus:outline-none font-second"
+                placeholder="Açar sözi">
+        </div>
+
+        <button
+            class="mx-auto mt-4 w-[calc(100%-2rem)] sm:w-[624px] bg-yellow-400 rounded-md py-4 font-second font-semibold text-25px hover:bg-yellow-300"
+            [disabled]="!form.valid"
+        >Agza bol</button>
+    </form>
+
+</div>

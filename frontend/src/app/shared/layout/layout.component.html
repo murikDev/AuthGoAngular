@@ -1,0 +1,35 @@
+<header class="border-b shadow-lg bg-[#d7e3ff] font-main">
+    <div class="flex max-w-7xl items-center justify-between px-3 2xl:px-0 py-5 mx-auto">
+        <div class="flex items-center gap-10">
+            <a class="font-second font-bold uppercase text-[32px]" routerLink="/dashboard">Home</a>
+
+            <div class="hidden md:flex items-center gap-4 text-gray-600">
+                <a class="font-bold text-[20px]">About us</a>
+                <a class="font-bold text-[20px]">Contact</a>
+                <a class="font-bold text-[20px]">todo</a>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-6">
+            @if (!isLoggedIn) {
+                <a class="flex items-center gap-2 bg-yellow-400 p-3 rounded-lg hover:bg-yellow-300" routerLink="/login">
+                    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="login"></mat-icon>
+                    Ulgama gir
+                </a>
+                <a class="hidden sm:flex items-center gap-2 bg-blue-500 p-3 rounded-lg text-white hover:bg-blue-400" routerLink="/register">
+                    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="person_add"></mat-icon>
+                    Agza bol
+                </a>
+            } @else {
+                <button type="button"
+                        class="flex items-center gap-2 bg-red-500 text-white p-3 rounded-lg hover:bg-red-400"
+                        (click)="logout()">
+                    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="logout"></mat-icon>
+                    Çykmak
+                </button>
+            }
+        </div>
+    </div>
+</header>
+
+<router-outlet></router-outlet>

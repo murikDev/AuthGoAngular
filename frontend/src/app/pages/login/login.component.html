@@ -1,0 +1,36 @@
+<div class="mx-auto py-3 text-center mt-8">
+    <div class="text-[32px] font-second py-4 font-bold">Ulgama gir</div>
+
+    <p class="py-2 font-second text-gray-400">Dowam etmek üçin email salgyňyzy we açarsöziňizi giriziň</p>
+
+
+    <form [formGroup]="form" (submit)="sumbit()" >
+        <div class="mx-auto mt-4 w-[calc(100%-2rem)] sm:w-[624px] bg-gray-300 rounded-md">
+            <input
+                formControlName="email"
+                type="email"
+                class="p-4 border w-full rounded-md focus:outline-none font-second"
+                [ngClass]="{'border-red-500' : !form.get('email')?.valid && form.get('email')?.dirty }"
+                [placeholder]="'Email salgyňyz'">
+        </div>
+
+        <div class="mx-auto mt-4 w-[calc(100%-2rem)] sm:w-[624px] bg-gray-300 rounded-md">
+            <input
+                formControlName="password"
+                type="password"
+                class="p-4 border w-full rounded-md focus:outline-none font-second"
+                [ngClass]="{'border-red-500' : form.get('password')?.errors && form.get('password')?.dirty }"
+                [placeholder]="'Açar sözi'">
+        </div>
+
+        <button
+            class="mx-auto mt-4 w-[calc(100%-2rem)] sm:w-[624px] bg-yellow-400 rounded-md py-4 font-second font-semibold text-25px hover:bg-yellow-300"
+            [disabled]="!form.valid"
+        >Ulgama gir</button>
+    </form>
+
+    <div class="flex sm:hidden items-center justify-center mt-6 gap-5 py-2">
+        <p class="font-second text-black font-semibold">Entek hasabyňyz ýokmy?</p>
+        <a class="text-blue-500 font-second hover:underline" [routerLink]="['/register']">Agza bolyň</a>
+    </div>
+</div>
